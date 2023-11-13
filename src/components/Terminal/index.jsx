@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 export default function Terminal() {
-  const [commandHistory, setCommandHistory] = useState([]);
+  const [history, setHistory] = useState([]);
   const [command, setCommand] = useState('');
 
   const onInputChange = ({ target }) => {
@@ -9,7 +9,9 @@ export default function Terminal() {
   };
 
   const executeCommand = () => {
-    setCommandHistory((prevCommandHistory) => [...prevCommandHistory, command]);
+    setHistory(
+      (prevHistory) => [...prevHistory, command],
+    );
     setCommand('');
   };
 
@@ -22,7 +24,9 @@ export default function Terminal() {
   return (
     <div>
       {
-        commandHistory.map((historyCommand) => <p>{historyCommand}</p>)
+        history.map(
+          (historyCommand) => (<p>{historyCommand}</p>),
+        )
       }
       <input type="text" value={command} onChange={onInputChange} onKeyDown={onInputKeyDown} />
     </div>
