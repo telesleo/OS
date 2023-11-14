@@ -7,6 +7,10 @@ function App() {
       type: 'directory',
       content: {},
     },
+    newFolder: {
+      type: 'directory',
+      content: {},
+    },
   });
 
   return (
