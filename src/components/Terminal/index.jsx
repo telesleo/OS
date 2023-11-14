@@ -40,6 +40,10 @@ export default function Terminal({ storage, setStorage }) {
           (prevHistory) => [...prevHistory, { type: 'output', content: output }],
         );
       }
+    } else {
+      setHistory(
+        (prevHistory) => [...prevHistory, { type: 'output', content: `The command "${command}" does not exist` }],
+      );
     }
 
     setCommandLine('');
@@ -64,6 +68,9 @@ export default function Terminal({ storage, setStorage }) {
 }
 
 Terminal.propTypes = {
-  storage: PropTypes.objectOf(PropTypes.shape({})).isRequired,
+  storage: PropTypes.shape({
+    type: PropTypes.string,
+    content: PropTypes.shape({}),
+  }).isRequired,
   setStorage: PropTypes.func.isRequired,
 };
