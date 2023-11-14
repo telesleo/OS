@@ -25,7 +25,7 @@ export default function Terminal() {
     <div>
       {
         history.map(
-          (historyCommand) => (<p>{historyCommand}</p>),
+          (historyCommand, index) => (<p key={`${index}-${historyCommand}`}>{historyCommand}</p>),
         )
       }
       <input type="text" value={command} onChange={onInputChange} onKeyDown={onInputKeyDown} />
