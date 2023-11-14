@@ -1,5 +1,7 @@
+import { resolve } from 'path-browserify';
+
 import {
-  createDirectory, getPathParts, isPathValid, resolvePath,
+  createDirectory, createFile, isPathValid, getDirOrFile,
 } from './fileSystem';
 
 export default {
@@ -7,25 +9,15 @@ export default {
     return path;
   },
   list(_parameters, path, _setPath, storage) {
-    return Object.keys(resolvePath(storage, path).content).join(' ');
+    return Object.keys(getDirOrFile(storage, path).content).join(' ');
   },
-  goto(parameters, path, setPath, storage) {
-    let gotoPath = parameters;
-    if (gotoPath === '.') {
-      return null;
-    }
-    if (gotoPath === '..') {
-      const parts = getPathParts(path);
-      parts.pop();
-      const newPath = `/${parts.join('/')}`;
-      setPath(newPath);
-      return null;
-    }
-    if (isPathValid(storage, gotoPath)) {
-      if (!gotoPath || gotoPath[0] !== '/') {
-        gotoPath = `/${gotoPath}`;
+  goto(parameters, currentPath, setPath, storage) {
+    let targetPath = resolve(currentPath, parameters);
+    if (isPathValid(storage, targetPath)) {
+      if (!targetPath || targetPath[0] !== '/') {
+        targetPath = `/${targetPath}`;
       }
-      setPath(gotoPath);
+      setPath(targetPath);
       return null;
     }
     return 'Invalid directory';
@@ -39,7 +31,16 @@ export default {
 
     return createDirectory(storage, setStorage, name, dirPath);
   },
-  clear(_parameters, _path, _setPath, _storage, _setStorage, history, setHistory) {
+  file(parameters, path, _setPath, storage, setStorage) {
+    const [name, dirPath = path] = parameters.split(' ');
+
+    if (!isPathValid(storage, dirPath)) {
+      return 'Invalid directory';
+    }
+
+    return createFile(storage, setStorage, name, dirPath);
+  },
+  clear(_parameters, _path, _setPath, _storage, _setStorage, _history, setHistory) {
     setHistory([]);
   },
 };

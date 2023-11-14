@@ -1,11 +1,14 @@
+import { resolve } from 'path-browserify';
+
 export function getPathParts(path) {
   return path.split('/').filter((part) => part !== '');
 }
 
-export function isPathValid(storage, path) {
+export function isPathValid(storage, path, basePath = '') {
   if (!path) return false;
 
-  const parts = getPathParts(path);
+  const resolvedPath = resolve(basePath, path);
+  const parts = getPathParts(resolvedPath);
 
   let current = storage.content;
 
@@ -20,7 +23,7 @@ export function isPathValid(storage, path) {
   return true;
 }
 
-export function resolvePath(storage, path) {
+export function getDirOrFile(storage, path) {
   const parts = getPathParts(path);
 
   let current = storage;
@@ -41,7 +44,7 @@ export function createDirectory(storage, setStorage, name, path) {
     return 'Invalid directory';
   }
 
-  const directory = resolvePath(storage, path);
+  const directory = getDirOrFile(storage, path);
 
   if (directory.content[name] !== undefined) {
     return 'Directory already exists';
@@ -54,4 +57,24 @@ export function createDirectory(storage, setStorage, name, path) {
 
   setStorage({ ...storage });
   return `Directory "${name}" created at path ${path}`;
+}
+
+export function createFile(storage, setStorage, name, path) {
+  if (!isPathValid(storage, path)) {
+    return 'Invalid directory';
+  }
+
+  const directory = getDirOrFile(storage, path);
+
+  if (directory.content[name] !== undefined) {
+    return 'File already exists';
+  }
+
+  directory.content[name] = {
+    type: 'file',
+    content: '',
+  };
+
+  setStorage({ ...storage });
+  return `File "${name}" created at path ${path}`;
 }
