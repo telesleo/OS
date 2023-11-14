@@ -3,13 +3,15 @@ import Terminal from './components/Terminal';
 
 function App() {
   const [storage, setStorage] = useState({
-    desktop: {
-      type: 'directory',
-      content: {},
-    },
-    newFolder: {
-      type: 'directory',
-      content: {},
+    content: {
+      desktop: {
+        type: 'directory',
+        content: {},
+      },
+      newFolder: {
+        type: 'directory',
+        content: {},
+      },
     },
   });
 
