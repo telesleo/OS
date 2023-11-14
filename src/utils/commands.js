@@ -25,20 +25,24 @@ export default {
   dir(parameters, path, _setPath, storage, setStorage) {
     const [name, dirPath = path] = parameters.split(' ');
 
-    if (!isPathValid(storage, dirPath)) {
+    const resolvedPath = resolve(dirPath);
+
+    if (!isPathValid(storage, resolvedPath)) {
       return 'Invalid directory';
     }
 
-    return createDirectory(storage, setStorage, name, dirPath);
+    return createDirectory(storage, setStorage, name, resolvedPath);
   },
   file(parameters, path, _setPath, storage, setStorage) {
     const [name, dirPath = path] = parameters.split(' ');
 
-    if (!isPathValid(storage, dirPath)) {
+    const resolvedPath = resolve(dirPath);
+
+    if (!isPathValid(storage, resolvedPath)) {
       return 'Invalid directory';
     }
 
-    return createFile(storage, setStorage, name, dirPath);
+    return createFile(storage, setStorage, name, resolvedPath);
   },
   clear(_parameters, _path, _setPath, _storage, _setStorage, _history, setHistory) {
     setHistory([]);
