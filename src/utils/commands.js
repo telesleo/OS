@@ -1,4 +1,6 @@
-import { getPathParts, isPathValid, resolvePath } from './fileSystem';
+import {
+  createDirectory, getPathParts, isPathValid, resolvePath,
+} from './fileSystem';
 
 export default {
   path(_parameters, path) {
@@ -27,5 +29,14 @@ export default {
       return null;
     }
     return 'Invalid directory';
+  },
+  dir(parameters, path, _setPath, storage, setStorage) {
+    const [name, dirPath = path] = parameters.split(' ');
+
+    if (!isPathValid(storage, dirPath)) {
+      return 'Invalid directory';
+    }
+
+    return createDirectory(storage, setStorage, name, dirPath);
   },
 };
