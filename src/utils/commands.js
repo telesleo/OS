@@ -7,7 +7,7 @@ export default {
     return path;
   },
   list(_parameters, path, _setPath, storage) {
-    return Object.keys(resolvePath(storage, path)).join(' ');
+    return Object.keys(resolvePath(storage, path).content).join(' ');
   },
   goto(parameters, path, setPath, storage) {
     let gotoPath = parameters;

@@ -23,14 +23,14 @@ export function isPathValid(storage, path) {
 export function resolvePath(storage, path) {
   const parts = getPathParts(path);
 
-  let current = storage.content;
+  let current = storage;
 
   for (let index = 0; index < parts.length; index += 1) {
     const part = parts[index];
-    if (current[part] === undefined) {
+    if (current.type !== 'directory' || current.content[part] === undefined) {
       return null;
     }
-    current = current[part].content;
+    current = current.content[part];
   }
 
   return current;
@@ -41,23 +41,17 @@ export function createDirectory(storage, setStorage, name, path) {
     return 'Invalid directory';
   }
 
-  const parts = getPathParts(path);
-  let current = storage.content;
+  const directory = resolvePath(storage, path);
 
-  for (let index = 0; index < parts.length; index += 1) {
-    const part = parts[index];
-    current = current[part].content;
-  }
-
-  if (current[name] !== undefined) {
+  if (directory.content[name] !== undefined) {
     return 'Directory already exists';
   }
 
-  current[name] = {
+  directory.content[name] = {
     type: 'directory',
     content: {},
   };
 
   setStorage({ ...storage });
-  return `Directory ${name} created at path ${path}`;
+  return `Directory "${name}" created at path ${path}`;
 }

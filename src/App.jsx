@@ -3,6 +3,7 @@ import Terminal from './components/Terminal';
 
 function App() {
   const [storage, setStorage] = useState({
+    type: 'directory',
     content: {
       desktop: {
         type: 'directory',
