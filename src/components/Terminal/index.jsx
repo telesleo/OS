@@ -26,7 +26,15 @@ export default function Terminal({ storage, setStorage }) {
       command = commandLine;
     }
     if (Object.keys(commands).includes(command)) {
-      const output = commands[command](parameters, path, setPath, storage, setStorage);
+      const output = commands[command](
+        parameters,
+        path,
+        setPath,
+        storage,
+        setStorage,
+        history,
+        setHistory,
+      );
       if (output) {
         setHistory(
           (prevHistory) => [...prevHistory, { type: 'output', content: output }],

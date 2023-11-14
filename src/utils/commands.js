@@ -39,4 +39,7 @@ export default {
 
     return createDirectory(storage, setStorage, name, dirPath);
   },
+  clear(_parameters, _path, _setPath, _storage, _setStorage, history, setHistory) {
+    setHistory([]);
+  },
 };
