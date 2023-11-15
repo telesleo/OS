@@ -1,4 +1,5 @@
-import { resolve } from 'path-browserify';
+import { resolve, dirname, basename } from 'path-browserify';
+import capitalize from './string';
 
 export function getPathParts(path) {
   return path.split('/').filter((part) => part !== '');
@@ -77,4 +78,24 @@ export function createFile(storage, setStorage, name, path) {
 
   setStorage({ ...storage });
   return `File "${name}" created at path ${path}`;
+}
+
+export function removeDirOrFile(storage, setStorage, path) {
+  const parentDirPath = dirname(path);
+  const name = basename(path);
+  if (!isPathValid(storage, parentDirPath)) {
+    return 'Invalid directory';
+  }
+  const parentDirectory = getDirOrFile(storage, parentDirPath);
+
+  if (parentDirectory.content[name] === undefined) {
+    return 'Directory/File does not exist';
+  }
+
+  const type = capitalize(parentDirectory.content[name].type);
+
+  delete parentDirectory.content[name];
+
+  setStorage({ ...storage });
+  return `${type} "${name}" removed at path ${parentDirPath}`;
 }

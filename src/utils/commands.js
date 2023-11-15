@@ -1,7 +1,7 @@
 import { resolve } from 'path-browserify';
 
 import {
-  createDirectory, createFile, isPathValid, getDirOrFile,
+  createDirectory, createFile, isPathValid, getDirOrFile, removeDirOrFile,
 } from './fileSystem';
 
 export default {
@@ -43,6 +43,10 @@ export default {
     }
 
     return createFile(storage, setStorage, name, resolvedPath);
+  },
+  remove(parameters, path, _setPath, storage, setStorage) {
+    const dirFilePath = resolve(path, parameters);
+    return removeDirOrFile(storage, setStorage, dirFilePath);
   },
   clear(_parameters, _path, _setPath, _storage, _setStorage, _history, setHistory) {
     setHistory([]);
