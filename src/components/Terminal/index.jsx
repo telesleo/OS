@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import commands from '../../utils/commands';
+import styles from './terminal.module.css';
 
 export default function Terminal({ storage, setStorage }) {
   const [path, setPath] = useState('/');
@@ -56,13 +57,26 @@ export default function Terminal({ storage, setStorage }) {
   };
 
   return (
-    <div>
+    <div className={styles.terminal}>
       {
-        history.map(
-          (historyPiece, index) => (<p key={`${index}-${historyPiece}`}>{historyPiece.content}</p>),
+        (history.length > 0) && (
+          <div className={styles.history}>
+            {
+            history.map(
+              (historyPiece, index) => (
+                <p
+                  className={`${styles['history-piece']} ${((historyPiece.type === 'input') ? styles['history-piece-input'] : styles['history-piece-output'])}`}
+                  key={`${index}-${historyPiece}`}
+                >
+                  {historyPiece.content}
+                </p>
+              ),
+            )
+          }
+          </div>
         )
       }
-      <input type="text" value={commandLine} onChange={onInputChange} onKeyDown={onInputKeyDown} />
+      <input className={styles.input} type="text" value={commandLine} onChange={onInputChange} onKeyDown={onInputKeyDown} />
     </div>
   );
 }
