@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import commands from '../../utils/commands';
 import styles from './terminal.module.css';
@@ -8,9 +8,15 @@ export default function Terminal({ storage, setStorage }) {
   const [history, setHistory] = useState([]);
   const [commandLine, setCommandLine] = useState('');
 
+  const inputRef = useRef();
+
   const onInputChange = ({ target }) => {
     setCommandLine(target.value);
   };
+
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
 
   const executeCommand = () => {
     setHistory(
@@ -76,7 +82,7 @@ export default function Terminal({ storage, setStorage }) {
           </div>
         )
       }
-      <input className={styles.input} type="text" value={commandLine} onChange={onInputChange} onKeyDown={onInputKeyDown} />
+      <input className={styles.input} ref={inputRef} type="text" value={commandLine} onChange={onInputChange} onKeyDown={onInputKeyDown} />
     </div>
   );
 }
