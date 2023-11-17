@@ -9,7 +9,12 @@ function App() {
     content: {
       desktop: {
         type: 'directory',
-        content: {},
+        content: {
+          'text.txt': {
+            type: 'file',
+            content: 'content',
+          },
+        },
       },
       newFolder: {
         type: 'directory',
