@@ -7,6 +7,8 @@ import styles from './window.module.css';
 export default function Window({ storage, path }) {
   const [name, setName] = useState();
   const [entry, setEntry] = useState();
+  const [position] = useState({ x: 30, y: 30 });
+  const [size] = useState({ width: 700, height: 500 });
 
   useEffect(() => {
     if (!isPathValid(storage, path)) return;
@@ -15,17 +17,25 @@ export default function Window({ storage, path }) {
   }, [path]);
 
   return (
-    <div className={styles.window}>
+    <div
+      className={`${styles.window} ${'square'}`}
+      style={{
+        top: `${position.x}px`,
+        left: `${position.y}px`,
+        width: `${size.width}px`,
+        height: `${size.height}px`,
+      }}
+    >
       {
         (name) && (
-          <div>
+          <div className={styles.header}>
             {name}
           </div>
         )
       }
       {
         (entry) && (
-          <div>
+          <div className={styles.content}>
             {entry.content}
           </div>
         )

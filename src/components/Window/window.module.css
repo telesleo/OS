@@ -1,4 +1,20 @@
 .window {
+  position: absolute;
+  background-color: var(--white);
+  color: var(--black);
+  border: 1px solid var(--black);
+}
+
+.header {
+  border-bottom: 1px solid var(--black);
+  text-align: center;
+  background-color: var(--white);
+  color: var(--black);
+  padding: 5px;
+}
+
+.content {
+  padding: 10px;
   background-color: var(--white);
   color: var(--black);
 }
