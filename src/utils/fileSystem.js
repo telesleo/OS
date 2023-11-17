@@ -24,7 +24,7 @@ export function isPathValid(storage, path, basePath = '') {
   return true;
 }
 
-export function getDirOrFile(storage, path) {
+export function getEntry(storage, path) {
   const parts = getPathParts(path);
 
   let current = storage;
@@ -45,7 +45,7 @@ export function createDirectory(storage, setStorage, name, path) {
     return 'Invalid directory';
   }
 
-  const directory = getDirOrFile(storage, path);
+  const directory = getEntry(storage, path);
 
   if (directory.content[name] !== undefined) {
     return 'Directory already exists';
@@ -65,7 +65,7 @@ export function createFile(storage, setStorage, name, path) {
     return 'Invalid directory';
   }
 
-  const directory = getDirOrFile(storage, path);
+  const directory = getEntry(storage, path);
 
   if (directory.content[name] !== undefined) {
     return 'File already exists';
@@ -80,13 +80,13 @@ export function createFile(storage, setStorage, name, path) {
   return `File "${name}" created at path ${path}`;
 }
 
-export function removeDirOrFile(storage, setStorage, path) {
+export function removeEntry(storage, setStorage, path) {
   const parentDirPath = dirname(path);
   const name = basename(path);
   if (!isPathValid(storage, parentDirPath)) {
     return 'Invalid directory';
   }
-  const parentDirectory = getDirOrFile(storage, parentDirPath);
+  const parentDirectory = getEntry(storage, parentDirPath);
 
   if (parentDirectory.content[name] === undefined) {
     return 'Directory/File does not exist';

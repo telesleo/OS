@@ -1,7 +1,7 @@
 import { resolve } from 'path-browserify';
 
 import {
-  createDirectory, createFile, isPathValid, getDirOrFile, removeDirOrFile,
+  createDirectory, createFile, isPathValid, getEntry, removeEntry,
 } from './fileSystem';
 
 export default {
@@ -9,14 +9,14 @@ export default {
     return path;
   },
   list(_parameters, path, _setPath, storage) {
-    return Object.keys(getDirOrFile(storage, path).content).join(' ');
+    return Object.keys(getEntry(storage, path).content).join(' ');
   },
   goto(parameters, currentPath, setPath, storage) {
     const targetPath = resolve(currentPath, parameters);
     if (!isPathValid(storage, targetPath)) {
       return 'Invalid directory';
     }
-    if (getDirOrFile(storage, targetPath).type !== 'directory') {
+    if (getEntry(storage, targetPath).type !== 'directory') {
       return 'The destination is not a directory';
     }
     setPath(targetPath);
@@ -46,7 +46,7 @@ export default {
   },
   remove(parameters, path, _setPath, storage, setStorage) {
     const dirFilePath = resolve(path, parameters);
-    return removeDirOrFile(storage, setStorage, dirFilePath);
+    return removeEntry(storage, setStorage, dirFilePath);
   },
   clear(_parameters, _path, _setPath, _storage, _setStorage, _history, setHistory) {
     setHistory([]);
