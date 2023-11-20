@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Main from './Pages/Main';
-import Terminal from './components/Terminal';
+import TerminalPage from './Pages/TerminalPage';
 import './App.css';
 
 function App() {
@@ -27,7 +27,7 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Main storage={storage} setStorage={setStorage} />} />
-      <Route path="/terminal" element={<Terminal storage={storage} setStorage={setStorage} />} />
+      <Route path="/terminal" element={<TerminalPage storage={storage} setStorage={setStorage} />} />
     </Routes>
   );
 }
