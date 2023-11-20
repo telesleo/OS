@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Window from '../components/Window';
 import styles from './main.module.css';
+import Taskbar from '../components/Taskbar';
 
 export default function Main({ storage, setStorage }) {
   const [windows, setWindows] = useState([{
@@ -15,6 +16,7 @@ export default function Main({ storage, setStorage }) {
 
   return (
     <div id={styles.main}>
+      <Taskbar />
       <div id={styles.windows}>
         {
           windows.map((window, index) => (
