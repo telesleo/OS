@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import Window from '../components/Window';
 import styles from './main.module.css';
 
-export default function Main({ storage }) {
+export default function Main({ storage, setStorage }) {
   const [windows] = useState([{
-    path: '/desktop/text.txt',
+    app: 'terminal',
   }]);
 
   return (
@@ -16,6 +16,8 @@ export default function Main({ storage }) {
             <Window
               key={index + window.path}
               storage={storage}
+              setStorage={setStorage}
+              app={window.app}
               path={window.path}
             />
           ))
@@ -30,4 +32,5 @@ Main.propTypes = {
     type: PropTypes.string,
     content: PropTypes.shape({}),
   }).isRequired,
+  setStorage: PropTypes.func.isRequired,
 };

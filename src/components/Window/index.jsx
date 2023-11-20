@@ -2,9 +2,12 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { basename } from 'path-browserify';
 import { isPathValid, getEntry } from '../../utils/fileSystem';
+import Terminal from '../Terminal';
 import styles from './window.module.css';
 
-export default function Window({ storage, path }) {
+export default function Window({
+  storage, setStorage, app, path,
+}) {
   const [name, setName] = useState();
   const [entry, setEntry] = useState();
   const [position] = useState({ x: 30, y: 30 });
@@ -26,17 +29,13 @@ export default function Window({ storage, path }) {
         height: `${size.height}px`,
       }}
     >
-      {
-        (name) && (
-          <div className={styles.header}>
-            {name}
-          </div>
-        )
-      }
+      <div className={styles.header}>
+        {(name) || app }
+      </div>
       {
         (entry) && (
           <div className={styles.content}>
-            {entry.content}
+            { (app === 'terminal') && <Terminal storage={storage} setStorage={setStorage} /> }
           </div>
         )
       }
@@ -49,5 +48,11 @@ Window.propTypes = {
     type: PropTypes.string,
     content: PropTypes.shape({}),
   }).isRequired,
-  path: PropTypes.string.isRequired,
+  setStorage: PropTypes.func.isRequired,
+  app: PropTypes.string.isRequired,
+  path: PropTypes.string,
+};
+
+Window.defaultProps = {
+  path: '/',
 };

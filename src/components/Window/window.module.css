@@ -3,6 +3,9 @@
   background-color: var(--white);
   color: var(--black);
   border: 1px solid var(--black);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
 }
 
 .header {
@@ -10,11 +13,15 @@
   text-align: center;
   background-color: var(--white);
   color: var(--black);
-  padding: 5px;
+  min-height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .content {
-  padding: 10px;
   background-color: var(--white);
   color: var(--black);
+  flex-grow: 1;
+  overflow: auto;
 }
