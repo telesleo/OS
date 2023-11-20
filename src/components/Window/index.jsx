@@ -10,7 +10,7 @@ export default function Window({
 }) {
   const [name, setName] = useState();
   const [entry, setEntry] = useState();
-  const [position] = useState({ x: 30, y: 30 });
+  const [position] = useState({ x: 120, y: 30 });
   const [size] = useState({ width: 700, height: 500 });
 
   useEffect(() => {
@@ -23,8 +23,8 @@ export default function Window({
     <div
       className={`${styles.window} ${'square'}`}
       style={{
-        top: `${position.x}px`,
-        left: `${position.y}px`,
+        top: `${position.y}px`,
+        left: `${position.x}px`,
         width: `${size.width}px`,
         height: `${size.height}px`,
       }}
