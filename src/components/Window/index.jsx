@@ -6,7 +6,7 @@ import Terminal from '../Terminal';
 import styles from './window.module.css';
 
 export default function Window({
-  storage, setStorage, app, path,
+  storage, setStorage, app, path, removeWindow,
 }) {
   const [name, setName] = useState();
   const [entry, setEntry] = useState();
@@ -30,7 +30,9 @@ export default function Window({
       }}
     >
       <div className={styles.header}>
+        <div className={styles['hide-button']}>⌄</div>
         {(name) || app }
+        <button type="button" className={styles['exit-button']} onClick={removeWindow}>×</button>
       </div>
       {
         (entry) && (
@@ -51,6 +53,7 @@ Window.propTypes = {
   setStorage: PropTypes.func.isRequired,
   app: PropTypes.string.isRequired,
   path: PropTypes.string,
+  removeWindow: PropTypes.func.isRequired,
 };
 
 Window.defaultProps = {

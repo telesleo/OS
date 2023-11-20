@@ -4,9 +4,14 @@ import Window from '../components/Window';
 import styles from './main.module.css';
 
 export default function Main({ storage, setStorage }) {
-  const [windows] = useState([{
+  const [windows, setWindows] = useState([{
+    id: 0,
     app: 'terminal',
   }]);
+
+  const removeWindow = (id) => {
+    setWindows((prevWindows) => prevWindows.filter((window) => window.id !== id));
+  };
 
   return (
     <div id={styles.main}>
@@ -19,6 +24,7 @@ export default function Main({ storage, setStorage }) {
               setStorage={setStorage}
               app={window.app}
               path={window.path}
+              removeWindow={() => removeWindow(window.id)}
             />
           ))
         }
