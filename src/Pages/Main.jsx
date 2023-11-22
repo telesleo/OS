@@ -16,7 +16,7 @@ export default function Main({ storage, setStorage }) {
 
   return (
     <div id={styles.main}>
-      <Taskbar />
+      <Taskbar windows={windows} />
       <div id={styles.windows}>
         {
           windows.map((window, index) => (

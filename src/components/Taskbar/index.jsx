@@ -1,8 +1,10 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import WindowBar from '../WindowBar';
 import styles from './taskbar.module.css';
 
-export default function Taskbar() {
+export default function Taskbar({ windows }) {
   const navigate = useNavigate();
 
   const closeApp = () => {
@@ -12,7 +14,7 @@ export default function Taskbar() {
   return (
     <div id={styles.taskbar}>
       <div>00:00</div>
-      <div />
+      <WindowBar windows={windows} />
       <button type="button" onClick={closeApp}>
         <span className="material-symbols-outlined">
           restart_alt
@@ -21,3 +23,7 @@ export default function Taskbar() {
     </div>
   );
 }
+
+Taskbar.propTypes = {
+  windows: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+};
