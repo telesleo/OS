@@ -8,18 +8,31 @@ export default function Main({ storage, setStorage }) {
   const [windows, setWindows] = useState([{
     id: 0,
     app: 'terminal',
+    hide: false,
   }]);
 
   const removeWindow = (id) => {
     setWindows((prevWindows) => prevWindows.filter((window) => window.id !== id));
   };
 
+  const changeWindowVisibility = (id, hide) => {
+    setWindows((prevWindows) => prevWindows.map((window) => {
+      if (window.id === id) {
+        const newWindow = window;
+        newWindow.hide = hide;
+        return newWindow;
+      }
+      return window;
+    }));
+  };
+
   return (
     <div id={styles.main}>
-      <Taskbar windows={windows} />
+      <Taskbar windows={windows} changeWindowVisibility={changeWindowVisibility} />
       <div id={styles.windows}>
         {
           windows.map((window, index) => (
+            (!window.hide) && (
             <Window
               key={index + window.path}
               storage={storage}
@@ -28,6 +41,7 @@ export default function Main({ storage, setStorage }) {
               path={window.path}
               removeWindow={() => removeWindow(window.id)}
             />
+            )
           ))
         }
       </div>

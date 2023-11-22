@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import WindowBar from '../WindowBar';
 import styles from './taskbar.module.css';
 
-export default function Taskbar({ windows }) {
+export default function Taskbar({ windows, changeWindowVisibility }) {
   const navigate = useNavigate();
 
   const closeApp = () => {
@@ -14,7 +14,7 @@ export default function Taskbar({ windows }) {
   return (
     <div id={styles.taskbar}>
       <div>00:00</div>
-      <WindowBar windows={windows} />
+      <WindowBar windows={windows} changeWindowVisibility={changeWindowVisibility} />
       <button type="button" onClick={closeApp}>
         <span className="material-symbols-outlined">
           restart_alt
@@ -26,4 +26,5 @@ export default function Taskbar({ windows }) {
 
 Taskbar.propTypes = {
   windows: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  changeWindowVisibility: PropTypes.func.isRequired,
 };
