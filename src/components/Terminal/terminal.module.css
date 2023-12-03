@@ -1,0 +1,39 @@
+.terminal {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 100%;
+  height: fit-content;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-wrap: break-word;
+}
+
+.input {
+  border: 0;
+  outline: 0;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.terminal, .input {
+  background-color: var(--black);
+  font-family: 'Roboto Mono', monospace;
+  font-size: 15px;
+  color: var(--white);
+}
+
+.history {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.history-piece {
+  margin: 0;
+}
+
+.history-piece-output {
+  color: var(--light-gray);
+}

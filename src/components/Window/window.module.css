@@ -1,0 +1,36 @@
+.window {
+  position: absolute;
+  background-color: var(--white);
+  color: var(--black);
+  border: 1px solid var(--black);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.header {
+  border-bottom: 1px solid var(--black);
+  text-align: center;
+  background-color: var(--white);
+  color: var(--black);
+  padding: 5px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.content {
+  background-color: var(--white);
+  color: var(--black);
+  flex-grow: 1;
+  overflow: auto;
+}
+
+.exit-button {
+  border: 0;
+}
+
+.exit-button, .hide-button {
+  padding: 0;
+  background-color: inherit;
+}
